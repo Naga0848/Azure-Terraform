@@ -21,6 +21,8 @@ terraform documentation https://developer.hashicorp.com/terraform/docs
 
     az login
 
+    below is the screenshot and the output which we receive after running the az login command and the output displays the subscriptionid
+
 ![alt text](Images/az-login.png)
 
 
