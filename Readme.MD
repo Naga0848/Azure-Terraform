@@ -97,7 +97,7 @@ terraform documentation https://developer.hashicorp.com/terraform/docs
 ![alt text](Images/set-env-vars.png)
 
 
-### time to execute the terraform commands to create the resources mentioned in main.tf files
+### Time to execute the terraform commands to create the resources mentioned in main.tf files
 
     terraform init
 
@@ -113,7 +113,7 @@ terraform documentation https://developer.hashicorp.com/terraform/docs
 
     * Now a .terraform file and .terraform.lock.hcl are created using which terraform talks to azure apis and creates the 
     necessary resources mentioned in main.tf file
-    
+
 ![alt text](Images/storage-account.png)
 
     
