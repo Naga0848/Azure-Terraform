@@ -141,3 +141,30 @@ terraform documentation https://developer.hashicorp.com/terraform/docs
     * Now a storage accound within this resource group will be created which is not managed by terraform and the statefile is stored in it.
 
 ![alt text](Images/statefile-storage-account.png)
+
+    * Now to run the terraform commands to see the statefile creation in our staorage account
+
+        terraform init
+
+        terraform plan
+
+        terraform validate
+
+        terraform apply -auto-approve
+
+![alt text](Images/statefile.png)       
+
+    * Finally we can see that statefile is created inside our storage account
+
+    * Remember that we have created a block inside our main.tf for the statefile creation in remote 
+
+    * Below is the general storage account created from main.tf
+
+![alt text](Images/general-storage-account.png)    
+
+    * Below is the general resource-group created from main.tf
+
+![alt text](Images/general-resource-group.png)
+
+    * Remember that statefile gets stored in the another storage account which we created using the bakend block in main.tf
+
