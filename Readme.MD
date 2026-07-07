@@ -75,7 +75,7 @@ terraform documentation https://developer.hashicorp.com/terraform/docs
 ![alt text](Images/service-principle.png)
 
      az ad sp create-for-rbac -n az-naga --role="Contributor" --scopes="//subscriptions/c0b3d310-9949-4aeb-a1cf-357af87c1e20"
-     
+
     Found an existing application instance: (id) 234916a2-6b03-43f7-a6f2-43f62685f7ca. We will patch it.
     Creating 'Contributor' role assignment under scope '//subscriptions/c0b3d310-9949-4aeb-a1cf-357af87c1e20'
     The output includes credentials that you must protect. Be sure that you do not include these credentials in your code or check the credentials into your source control. For more information, see https://aka.ms/azadsp-cli
@@ -95,3 +95,25 @@ terraform documentation https://developer.hashicorp.com/terraform/docs
         export ARM_TENANT_ID="daab0a0f-c83d-4ab1-93bf-1e2f6645c8be"
 
 ![alt text](Images/set-env-vars.png)
+
+
+### time to execute the terraform commands to create the resources mentioned in main.tf files
+
+    terraform init
+
+    terraform plan
+
+    terraform validate
+
+    terraform apply -auto-approve
+
+    * Now the resources like resource_group with the name "nagashankar" and a storage_account with the name "nagashankar0848" will be created in the azure account as shown in the below screenshots
+
+![alt text](Images/resource-group.png)
+
+    * Now a .terraform file and .terraform.lock.hcl are created using which terraform talks to azure apis and creates the 
+    necessary resources mentioned in main.tf file
+    
+![alt text](Images/storage-account.png)
+
+    
