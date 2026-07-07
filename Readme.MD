@@ -81,10 +81,8 @@ terraform documentation https://developer.hashicorp.com/terraform/docs
 
 
 
-
-
     * Now inorder to authenticate with azure account using service principle we have to define the env variables and use the above mentioned passwords
 
-
+    * below is the screenshot for settingup the env vars
 
 ![alt text](Images/set-env-vars.png)
