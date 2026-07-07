@@ -21,6 +21,12 @@ terraform documentation https://developer.hashicorp.com/terraform/docs
 
     az login
 
+    give the mail id of the account to which we have the azure account
+
+    enter the code which you have received in the concerned email inbox
+
+    The authentication is successful
+
     below is the screenshot and the output which we receive after running the az login command and the output displays the subscriptionid
 
 ![alt text](Images/az-login.png)
@@ -51,3 +57,9 @@ terraform documentation https://developer.hashicorp.com/terraform/docs
     If you encounter any problem, please open an issue at https://aka.ms/azclibug
 
     [Warning] The login output has been updated. Please be aware that it no longer displays the full list of available subscriptions by default.
+
+
+### Azure Account Authentication
+
+    We connect to the azure account using a service principle
+
