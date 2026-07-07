@@ -24,29 +24,28 @@ terraform documentation https://developer.hashicorp.com/terraform/docs
 ![alt text](Images/az-login.png)
 
 
-        $ az login
-Select the account you want to log in with. For more information on login with Azure CLI, see https://go.microsoft.com/fwlink/?linkid=2271136
 
-Retrieving tenants and subscriptions for the selection...
+    Select the account you want to log in with. For more information on login with Azure CLI, see https://go.microsoft.com/fwlink/?linkid=2271136
 
-[Tenant and subscription selection]
+    Retrieving tenants and subscriptions for the selection...
 
-No     Subscription name     Subscription ID                       Tenant
------  --------------------  ------------------------------------  -----------------
-[1] *  Azure subscription 1  c0b3d310-9949-4aeb-a1cf-357af87c1e20  Default Directory
+    [Tenant and subscription selection]
 
-The default is marked with an *; the default tenant is 'Default Directory' and subscription is 'Azure subscription 1' (c0b3d310-9949-4aeb-a1cf-357
-af87c1e20).
+    No     Subscription name     Subscription ID                       Tenant
+    -----  --------------------  ------------------------------------  -----------------
+    [1] *  Azure subscription 1  c0b3d310-9949-4aeb-a1cf-357af87c1e20  Default Directory
 
-Select a subscription and tenant (Type a number or Enter for no changes):
+    The default is marked with an *; the default tenant is 'Default Directory' and subscription is 'Azure subscription 1' (c0b3d310-9949-4aeb-a1cf-357af87c1e20).
 
-Tenant: Default Directory
-Subscription: Azure subscription 1 (c0b3d310-9949-4aeb-a1cf-357af87c1e20)
+    Select a subscription and tenant (Type a number or Enter for no changes):
 
-[Announcements]
-With the new Azure CLI login experience, you can select the subscription you want to use more easily. Learn more about it and its configuration at
- https://go.microsoft.com/fwlink/?linkid=2271236
+    Tenant: Default Directory
+    Subscription: Azure subscription 1 (c0b3d310-9949-4aeb-a1cf-357af87c1e20)
 
-If you encounter any problem, please open an issue at https://aka.ms/azclibug
+    [Announcements]
+    With the new Azure CLI login experience, you can select the subscription you want to use more easily. Learn more about it and its configuration at
+    https://go.microsoft.com/fwlink/?linkid=2271236
 
-[Warning] The login output has been updated. Please be aware that it no longer displays the full list of available subscriptions by default.
+    If you encounter any problem, please open an issue at https://aka.ms/azclibug
+
+    [Warning] The login output has been updated. Please be aware that it no longer displays the full list of available subscriptions by default.
