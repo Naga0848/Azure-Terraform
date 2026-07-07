@@ -59,7 +59,38 @@ terraform documentation https://developer.hashicorp.com/terraform/docs
     [Warning] The login output has been updated. Please be aware that it no longer displays the full list of available subscriptions by default.
 
 
-### Azure Account Authentication
+### Authentication to Azure Portal or Resources Provisioning
 
-    We connect to the azure account using a service principle
+    * An Azure service principal is a non-human identity in Microsoft Entra ID used by applications, services, and automated tools to access specific Azure resources.
 
+    * We have to create a service principle inorder to create the resources in Azure portal 
+    rather than using our own credentials by assigning the contributor role to it.
+
+    * command to create the service principle
+
+        az ad sp create-for-rbac -n az-naga --role="Contributor" --scopes="/subscriptions/c0b3d310-9949-4aeb-a1cf-357af87c1e20"
+
+    * After creating the service-principle we get the below message 
+
+![alt text](Images/service-principle.png)
+
+     az ad sp create-for-rbac -n az-naga --role="Contributor" --scopes="//subscriptions/c0b3d310-9949-4aeb-a1cf-357af87c1e20"
+    Found an existing application instance: (id) 234916a2-6b03-43f7-a6f2-43f62685f7ca. We will patch it.
+    Creating 'Contributor' role assignment under scope '//subscriptions/c0b3d310-9949-4aeb-a1cf-357af87c1e20'
+    The output includes credentials that you must protect. Be sure that you do not include these credentials in your code or check the credentials into your source control. For more information, see https://aka.ms/azadsp-cli
+    {
+    "appId": "19019e6e-dc66-447c-9406-71f18a90b32c",
+    "displayName": "az-naga",
+    "password": "au48Q~ldOyUved6O_NREU3MVJeZV6l88O8LBXbPR",
+    "tenant": "daab0a0f-c83d-4ab1-93bf-1e2f6645c8be"
+    }
+
+
+    * Now inorder to authenticate with azure account using service principle we have to define the env variables and use the above mentioned passwords
+
+        export ARM_CLIENT_ID="19019e6e-dc66-447c-9406-71f18a90b32c"
+        export ARM_CLIENT_SECRET="au48Q~ldOyUved6O_NREU3MVJeZV6l88O8LBXbPR"
+        export ARM_SUBSCRIPTION_ID="c0b3d310-9949-4aeb-a1cf-357af87c1e20"
+        export ARM_TENANT_ID="daab0a0f-c83d-4ab1-93bf-1e2f6645c8be"
+
+![alt text](Images/set-env-vars.png)
