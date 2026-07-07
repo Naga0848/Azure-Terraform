@@ -75,6 +75,7 @@ terraform documentation https://developer.hashicorp.com/terraform/docs
 ![alt text](Images/service-principle.png)
 
      az ad sp create-for-rbac -n az-naga --role="Contributor" --scopes="//subscriptions/c0b3d310-9949-4aeb-a1cf-357af87c1e20"
+     
     Found an existing application instance: (id) 234916a2-6b03-43f7-a6f2-43f62685f7ca. We will patch it.
     Creating 'Contributor' role assignment under scope '//subscriptions/c0b3d310-9949-4aeb-a1cf-357af87c1e20'
     The output includes credentials that you must protect. Be sure that you do not include these credentials in your code or check the credentials into your source control. For more information, see https://aka.ms/azadsp-cli
