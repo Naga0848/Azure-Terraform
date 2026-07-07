@@ -117,3 +117,27 @@ terraform documentation https://developer.hashicorp.com/terraform/docs
 ![alt text](Images/storage-account.png)
 
     
+
+### Understanding Statefile
+
+    * We just create something called backend in the terraform code inorder to store our statefile.
+
+    * The statefile gets stored in the storage account(which is not managed by the terraform at all)
+
+    * We directly create it using the shell scripting i.e., backend.sh
+
+    * After creating the storage-account, we need to mention a block of code in main.tf with the name backend to inform terraform to store the statefile inside that staorage-account.
+
+    * get inside the folder where the bash script is located
+
+    * chmod 775 backend.sh
+
+    * ./backend.sh    # command to execute the shell script to create the resource-group and storage account for storing statefile
+
+
+![alt text](Images/statefile-resource-group.png)
+
+
+    * Now a storage accound within this resource group will be created which is not managed by terraform and the statefile is stored in it.
+
+![alt text](Images/statefile-storage-account.png)
