@@ -169,3 +169,7 @@ terraform documentation https://developer.hashicorp.com/terraform/docs
     * Remember that statefile gets stored in the another storage account which we created using the bakend block in main.tf
 
     * After practising do not forget to delete the resource group which we created for statefile.
+
+
+
+### Terraform Variables - Input vs Output vs Local Variables
