@@ -1,4 +1,4 @@
-### This repo consists of Azure Terraform related info
+### This is a global repo consists of Azure Terraform related info
 
 ### Basic commands to be followed in order to create a repo or a file and push it into GitHub
 
