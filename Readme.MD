@@ -170,7 +170,44 @@ terraform documentation https://developer.hashicorp.com/terraform/docs
 
     * After practising do not forget to delete the resource group which we created for statefile.
 
+### Steps to be followed to login to azure account created in KodeKloud
+
+    az login
+
+    select the Work or school account as shown in the below image as KodeKloud credentials are valid only for this account.
+
+![alt text](Images/KodeKloud.png)
+
+    use the IAM username and Password to login to the KodeKloud provided azure account.
+
+    Also make sure to copy the subscriptionID in order to create the service principle to create the azure resources in the KodeKloud provided azure account. Please refer the below image.
+
+![alt text](Images/KodeKloud-subscriptionid.png)    
+
+    Make sure to use the default resource-group provided in the KodeKloud provided azure account in order to create the resources as shown below
+
+        terraform {
+            required_providers {
+                azurerm = {
+                source  = "hashicorp/azurerm"
+                version = "~> 3.0" # Or current 4.x version
+                 }
+             }
+        }
+
+        # Configure the Microsoft Azure Provider
+provider "azurerm" {
+  features {}
+        # Terraform automatically picks up your 'az login' credentials here
+        }
+
+        # Reference the existing KodeKloud Resource Group
+        data "azurerm_resource_group" "playground" {
+        name = "kml_rg_main-8663b72e03404e1f"
+        }
 
 
+        Now use the above template in main.tf and start creating the resources
+        
 ### Understanding Terraform Meta Arguments
 
