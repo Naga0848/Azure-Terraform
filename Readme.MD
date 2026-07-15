@@ -210,5 +210,8 @@ terraform documentation https://developer.hashicorp.com/terraform/docs
 
         Now use the above template in main.tf and start creating the resources
 
+        Understand that you cannot create a service principle here in order to create the resources as we are using a basic student account
+
+
 ### Understanding Terraform Meta Arguments
 
