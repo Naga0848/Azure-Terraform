@@ -337,3 +337,7 @@ terraform documentation https://developer.hashicorp.com/terraform/docs
 
             * similarly we will have the azurerm_storage_account.example[1] and azurerm_storage_account.example[2]
 
+
+        * Please look at the below image to know the difference between count and for_each
+        
+![alt text](Images/difference.png)
