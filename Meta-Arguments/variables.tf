@@ -4,5 +4,3 @@ variable "environment" {
     description = "the env type or the env name"
 
 }
-
-variable "sto"
