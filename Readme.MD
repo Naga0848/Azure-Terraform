@@ -222,5 +222,7 @@ terraform documentation https://developer.hashicorp.com/terraform/docs
 
 ![alt text](Images/kodekloud-statefile.png)
 
+        * And we are referring this storage-accound in the main.tf file so that the statefile is accessed in this location by terraform
+
 ### Understanding Terraform Meta Arguments
 
