@@ -224,5 +224,8 @@ terraform documentation https://developer.hashicorp.com/terraform/docs
 
         * And we are referring this storage-accound in the main.tf file so that the statefile is accessed in this location by terraform
 
+        * az account show --query id -o tsv   to know the subscription-id
+
+
 ### Understanding Terraform Meta Arguments
 
