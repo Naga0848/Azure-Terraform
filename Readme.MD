@@ -208,10 +208,19 @@ terraform documentation https://developer.hashicorp.com/terraform/docs
         }
 
 
-        Now use the above template in main.tf and start creating the resources
+        * Now use the above template in main.tf and start creating the resources
 
-        Understand that you cannot create a service principle here in order to create the resources as we are using a basic student account
+        * Understand that you cannot create a service principle here in order to create the resources as we are using a basic student account
 
+        * Inorder to create the statefile, please run the below commands
+
+        * chmod 775 backend.sh
+
+        * ./backend.sh    # command to execute the shell script to create the resource-group and storage account for storing statefile
+
+        * By now we have created the storage-account using the backend.sh shell script and using it here. When we run the terraform init command dev.terraform.tfstate will be created in the blob containers as shown below
+
+![alt text](Images/kodekloud-statefile.png)
 
 ### Understanding Terraform Meta Arguments
 
