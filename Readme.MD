@@ -293,6 +293,9 @@ terraform documentation https://developer.hashicorp.com/terraform/docs
 
 ### Understanding Terraform Meta Arguments   ---> https://developer.hashicorp.com/terraform/language/meta-arguments
 
+
+![alt text](Images/meta-arguments.png)
+
     ### Understanding Count
 
         * Lets use the storage-account as an example to know about count.
@@ -339,5 +342,5 @@ terraform documentation https://developer.hashicorp.com/terraform/docs
 
 
         * Please look at the below image to know the difference between count and for_each
-        
+
 ![alt text](Images/difference.png)
