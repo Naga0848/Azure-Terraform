@@ -288,7 +288,7 @@ terraform documentation https://developer.hashicorp.com/terraform/docs
     "gitlens.ai.vscode.model": "copilot:gpt-4o-mini"
 }
 
-### Understanding Terraform Meta Arguments
+### Understanding Terraform Meta Arguments   ---> https://developer.hashicorp.com/terraform/language/meta-arguments
 
     ### Understanding Count
 
@@ -334,4 +334,3 @@ terraform documentation https://developer.hashicorp.com/terraform/docs
 
             * similarly we will have the azurerm_storage_account.example[1] and azurerm_storage_account.example[2]
 
-            
