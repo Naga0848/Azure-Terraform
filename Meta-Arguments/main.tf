@@ -23,10 +23,10 @@ provider "azurerm" {
   features {}
   subscription_id = "a2b28c85-1948-4263-90ca-bade2bac4df4"  #subscription id of current kodekloud account
   resource_provider_registrations = "none"
-  
+  }
 
-  #az account show --query id -o tsv   to know the subscription-id
-}
+#az account show --query id -o tsv   to know the subscription-id
+
 
 # 2. Declare the existing Resource Group using a Data Source
 data "azurerm_resource_group" "existing_rg" {
