@@ -231,7 +231,7 @@ terraform documentation https://developer.hashicorp.com/terraform/docs
 
         * Because you are using a restricted student account in a KodeKloud sandbox, you do not have administrative access to the entire subscription. When Terraform attempts to register those providers, Azure blocks it and throws a 403 Forbidden error.
 
-        * Setting the value to "none" completely skips that automatic registration scan. Terraform will simply assume that the core services you need (like basic Networking and Storage) are already pre-registered by the KodeKloud administrators, allowing your code to execute smoothly without hitting permission blocks.
+        * skip_provider_registration = true completely skips that automatic registration scan. Terraform will simply assume that the core services you need (like basic Networking and Storage) are already pre-registered by the KodeKloud administrators, allowing your code to execute smoothly without hitting permission blocks.
 
         * Look at the below image to understand more about Azure Resource Provider
 
