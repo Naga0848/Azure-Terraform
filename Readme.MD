@@ -196,10 +196,11 @@ terraform documentation https://developer.hashicorp.com/terraform/docs
         }
 
         # Configure the Microsoft Azure Provider
-provider "azurerm" {
-  features {}
-        # Terraform automatically picks up your 'az login' credentials here
-        }
+
+        provider "azurerm" {
+        features {}
+                # Terraform automatically picks up your 'az login' credentials here
+                }
 
         # Reference the existing KodeKloud Resource Group
         data "azurerm_resource_group" "playground" {
@@ -208,6 +209,6 @@ provider "azurerm" {
 
 
         Now use the above template in main.tf and start creating the resources
-        
+
 ### Understanding Terraform Meta Arguments
 
