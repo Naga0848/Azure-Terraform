@@ -1,12 +1,12 @@
 
 #  Declare the existing Resource Group using a Data Source
 data "azurerm_resource_group" "existing_rg" {
-  name = "kml_rg_main-af9fdbfe69444f14"
+  name = "kml_rg_main-ab1e84bd82fd4264"
 }
 
 resource "azurerm_storage_account" "existing_rg" {
  
-  name                     = "nagashankar"
+  name                     = "nagashankar123"
   resource_group_name      = data.azurerm_resource_group.existing_rg.name
   location                 = data.azurerm_resource_group.existing_rg.location # implicit dependency
   account_tier             = "Standard"

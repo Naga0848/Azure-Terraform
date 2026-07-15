@@ -237,5 +237,56 @@ terraform documentation https://developer.hashicorp.com/terraform/docs
 
 ![alt text](Images/azure-resource-provider.png)        
 
+
+#### when you are facing issue with the vscode editor
+
+    * Follow the steps
+
+    * Open settings using Ctrl + , (comma).
+
+    * Now search for settings.json and replace it with the below code
+
+        {
+    "workbench.colorTheme": "Monokai",
+    "editor.fontSize": 18,
+    "window.zoomLevel": 1,
+    "files.autoSave": "afterDelay",
+    "vs-kubernetes": {
+        "vscode-kubernetes.minikube-path-windows": "C:\\Users\\user\\.vs-kubernetes\\tools\\minikube\\windows-amd64\\minikube.exe",
+        "vscode-kubernetes.helm-path-windows": "C:\\Users\\user\\.vs-kubernetes\\tools\\helm\\windows-amd64\\helm.exe",
+        "vscode-kubernetes.kubectl-path-windows": "C:\\Users\\user\\.vs-kubernetes\\tools\\kubectl\\kubectl.exe"
+    },
+    "editor.columnSelection": true,
+    "editor.acceptSuggestionOnEnter": "on",
+    "editor.quickSuggestions": {
+        "other": "on",
+        "comments": "on",
+        "strings": "on"
+    },
+    "editor.snippetSuggestions": "top",
+    "editor.inlineSuggest.enabled": true,
+    "[dockercompose]": {
+        "editor.insertSpaces": true,
+        "editor.tabSize": 2,
+        "editor.autoIndent": "advanced",
+        "editor.quickSuggestions": {
+            "other": "on",
+            "comments": "on",
+            "strings": "on"
+        },
+        "editor.defaultFormatter": "redhat.vscode-yaml"
+    },
+    "[github-actions-workflow]": {
+        "editor.defaultFormatter": "redhat.vscode-yaml"
+    },
+    "security.workspace.trust.untrustedFiles": "open",
+    "azureTerraform.survey": {
+        "surveyPromptDate": "2026-07-16T11:06:28.756Z",
+        "surveyPromptIgnoredCount": 0
+    },
+    "gitlens.ai.model": "vscode",
+    "gitlens.ai.vscode.model": "copilot:gpt-4o-mini"
+}
+
 ### Understanding Terraform Meta Arguments
 
