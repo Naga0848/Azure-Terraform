@@ -1,7 +1,7 @@
 #!/bin/bash
 
-RESOURCE_GROUP_NAME=kml_rg_main-8663b72e03404e1f
-STORAGE_ACCOUNT_NAME=day04217061
+RESOURCE_GROUP_NAME=kml_rg_main-af9fdbfe69444f14
+STORAGE_ACCOUNT_NAME=nagastatefile
 CONTAINER_NAME=tfstate
 
 # Create resource group
