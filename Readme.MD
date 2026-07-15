@@ -290,3 +290,48 @@ terraform documentation https://developer.hashicorp.com/terraform/docs
 
 ### Understanding Terraform Meta Arguments
 
+    ### Understanding Count
+
+        * Lets use the storage-account as an example to know about count.
+
+        * we all know that we cannot create the storage-account with same names, i.e., the names should be unique
+
+        * If we want to create the multiple storage accounts at a time via terraform code, we make use of the count 
+
+        * Understand that count is list(string)
+            so, while variabilising it in the variable.tf we have to give the names of the service-accounts which we want to create
+
+            variable "storage_account_name" {
+            type = list(string)
+            default = ["nagashankar0848", "nagashankar0849", "nagashankar0850"]
+            description = "the storage account name"
+            }
+
+            from the above variable.tf we can understand that three storage-accounts are going to be created with different names as displayed.
+
+        * Understanding main.tf for the storage-account
+
+            * here we need to specify the variable and the count as displayed below.
+
+                resource "azurerm_storage_account" "example" {
+                name                     = var.storage_account_name[count.index]
+                count                    = length(var.storage_account_name)
+                resource_group_name      = data.azurerm_resource_group.existing_rg.name
+                location                 = data.azurerm_resource_group.existing_rg.location
+                account_tier             = "Standard"
+                account_replication_type = "GRS"
+
+                tags = {
+            environment = "staging"
+                    }
+                }
+
+            * We have only single resource-group in our KodeKloud account, so we use it or declare it as data.azurerm_resource_group.existing_rg.name and data.azurerm_resource_group.existing_rg.location etc.....
+
+            * Now run terraform plan, and see the magic
+
+![alt text](Images/storage-account-count.png)
+
+            * similarly we will have the azurerm_storage_account.example[1] and azurerm_storage_account.example[2]
+
+            

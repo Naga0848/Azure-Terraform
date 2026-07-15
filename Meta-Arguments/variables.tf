@@ -6,8 +6,7 @@ variable "environment" {
 }
 
 variable "storage_account_name" {
-    type = string
-    default = "mystorageaccount"
-    description = "the name of the storage account"
+    type = list(string)
+    default = ["nagashankar0848", "nagashankar0849", "nagashankar0850"]
+    description = "the storage account name"
 }
-
