@@ -134,6 +134,9 @@ terraform documentation https://developer.hashicorp.com/terraform/docs
 
     * ./backend.sh    # command to execute the shell script to create the resource-group and storage account for storing statefile
 
+    * az storage container create --name <YOUR_CONTAINER_NAME> --account-name nagastatefile --auth-mode login
+
+        please run the above command when the statefile is created in the KodeKloud azure account
 
 ![alt text](Images/statefile-resource-group.png)
 

@@ -1,7 +1,7 @@
 
 #  Declare the existing Resource Group using a Data Source
 data "azurerm_resource_group" "existing_rg" {
-  name = "kml_rg_main-ab1e84bd82fd4264"
+  name = "kml_rg_main-0a87132c14354ac5"
 }
 
 

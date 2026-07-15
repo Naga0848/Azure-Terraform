@@ -1,6 +1,6 @@
 #!/bin/bash
 
-RESOURCE_GROUP_NAME=kml_rg_main-ab1e84bd82fd4264
+RESOURCE_GROUP_NAME=kml_rg_main-0a87132c14354ac5
 STORAGE_ACCOUNT_NAME=nagastatefile
 CONTAINER_NAME=tfstate
 
