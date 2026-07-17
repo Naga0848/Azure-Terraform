@@ -129,4 +129,23 @@ Below is the architecture of the project which we are going to perform here
 
         https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/monitor_autoscale_setting
 
-  
+
+
+
+### understanding how to access the nginx web page which is used in our user-data.sh
+
+    * go to azure portal
+
+    * open resource-group
+
+    * according to the vnet.tf file azurerm_public_ip is the loadbalancer which we created and the name of the loadbalancer is PublicIPForLB
+
+    * under resource-group open the resource PublicIPForLB
+
+    * cope the dns name as shown in the below image
+
+![alt text](Images/dns.png)
+
+    * use the url as dns/      ----> to see the nginx welcome page as below
+
+![alt text](Images/nginx.png)
