@@ -69,4 +69,14 @@ Below is the architecture of the project which we are going to perform here
     * azurerm_nat_gateway
 
         https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/nat_gateway
+
+    * azurerm_nat_gateway_public_ip_association
+
+        https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/nat_gateway_public_ip_association
+
+    * azurerm_windows_virtual_machine_scale_set
+
+        https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/windows_virtual_machine_scale_set
+
+    * 
    
