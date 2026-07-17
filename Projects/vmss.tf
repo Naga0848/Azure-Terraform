@@ -40,7 +40,8 @@ resource "azurerm_orchestrated_virtual_machine_scale_set" "vmss_terraform_tutori
     ip_configuration {
       name                                   = "ipconfig"
       primary                                = true
-      subnet_id                              = azurerm_subnet.subnet.id
+      subnet_id                              = azurerm_virtual_network.example.subnet[0].id
+      # subnet_id is in this format because the subnet is inside the virtual network resource block. If the subnet is created as a separate resource block, then the subnet_id will be in this format: azu
       load_balancer_backend_address_pool_ids = [azurerm_lb_backend_address_pool.example.id]
     }
   }

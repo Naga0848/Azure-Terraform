@@ -3,9 +3,6 @@ resource "random_pet" "lb_hostname" {
 
 
 # Already this resource group is created in the Azure portal. We are using a data source to reference it in our Terraform configuration.
-data "azurerm_resource_group" "existing_rg" {
-  name = var.resource_group_name
-}
 
 # As we are keeping the subnet related code blocks inside the virtual network resource block, we don't need to create a separate resource block for the subnet. The subnet will be created as part of the virtual network resource block. And we need not to mention the virtual network name and the resource-group names in the subnet code block
 resource "azurerm_virtual_network" "example" {
@@ -77,7 +74,8 @@ resource "azurerm_network_security_group" "example" {
 
 # This code block is used to associate the network security group with the subnet. The subnet_id is the id of the subnet that we want to associate with the network security group. The network_security_group_id is the id of the network security group that we want to associate with the subnet.
 resource "azurerm_subnet_network_security_group_association" "example" {
-  subnet_id                 = subnet1.id
+  subnet_id                 = azurerm_virtual_network.example.subnet[0].id
+  # subnet_id is in this format because the subnet is inside the virtual network resource block. If the subnet is created as a separate resource block, then the subnet_id will be in this format: azu
   network_security_group_id = azurerm_network_security_group.example.id
 }
 
