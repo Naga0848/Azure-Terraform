@@ -2,8 +2,8 @@
 
 resource "azurerm_orchestrated_virtual_machine_scale_set" "vmss_terraform_tutorial" {
   name                        = "vmss-terraform"
-  resource_group_name         = azurerm_resource_group.rg.name
-  location                    = azurerm_resource_group.rg.location
+  resource_group_name         = data.azurerm_resource_group.existing_rg.name
+  location                    = data.azurerm_resource_group.existing_rg.location
   sku_name                    = "Standard_D2s_v4"
   instances                   = 3
   platform_fault_domain_count = 1     # For zonal deployments, this must be set to 1

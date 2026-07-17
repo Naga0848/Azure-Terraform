@@ -78,5 +78,7 @@ Below is the architecture of the project which we are going to perform here
 
         https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/windows_virtual_machine_scale_set
 
-    * 
+    * azurerm_monitor_autoscale_setting
+
+        https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/monitor_autoscale_setting
    
