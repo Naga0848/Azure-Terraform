@@ -12,14 +12,6 @@ resource "azurerm_virtual_network" "example" {
   address_space       = ["10.0.0.0/16"]
   # dns_servers         = ["10.0.0.4", "10.0.0.5"]
 
-
-  subnet {
-    name             = "subnet1"
-    address_prefixes = ["10.0.1.0/24"]
-
-  }
-
-
   # subnet {
     # name             = "subnet2"
     # address_prefixes = ["10.0.2.0/24"]
@@ -28,6 +20,14 @@ resource "azurerm_virtual_network" "example" {
   tags = {
     environment = var.environment
   }
+}
+
+# Create subnet as a separate managed resource so it can be referenced by index-free IDs
+resource "azurerm_subnet" "subnet1" {
+  name                 = "subnet1"
+  resource_group_name  = data.azurerm_resource_group.existing_rg.name
+  virtual_network_name = azurerm_virtual_network.example.name
+  address_prefixes     = ["10.0.1.0/24"]
 }
 
 resource "azurerm_network_security_group" "example" {
@@ -47,21 +47,10 @@ resource "azurerm_network_security_group" "example" {
     destination_address_prefix = "*"
   }
 
-  security_rule {
-    name                       = "allow-https"
-    priority                   = 101
-    direction                  = "Inbound"
-    access                     = "Allow"
-    protocol                   = "Tcp"
-    source_port_range          = "*"
-    destination_port_range     = "443"
-    source_address_prefix      = "*"
-    destination_address_prefix = "*"
-  }
-  #ssh security rule
+  # ssh security rule for backend VM access via NAT
   security_rule {
     name                       = "allow-ssh"
-    priority                   = 102
+    priority                   = 101
     direction                  = "Inbound"
     access                     = "Allow"
     protocol                   = "Tcp"
@@ -74,8 +63,7 @@ resource "azurerm_network_security_group" "example" {
 
 # This code block is used to associate the network security group with the subnet. The subnet_id is the id of the subnet that we want to associate with the network security group. The network_security_group_id is the id of the network security group that we want to associate with the subnet.
 resource "azurerm_subnet_network_security_group_association" "example" {
-  subnet_id                 = azurerm_virtual_network.example.subnet[0].id
-  # subnet_id is in this format because the subnet is inside the virtual network resource block. If the subnet is created as a separate resource block, then the subnet_id will be in this format: azu
+  subnet_id                 = azurerm_subnet.subnet1.id
   network_security_group_id = azurerm_network_security_group.example.id
 }
 
@@ -90,12 +78,12 @@ resource "azurerm_public_ip" "example" {
   allocation_method   = "Static"
   sku                 = "Standard"
   zones               = ["1", "2", "3"]
-  domain_name_label   = "${data.azurerm_resource_group.existing_rg.name}-${random_pet.lb_hostname.id}"
+  domain_name_label   = "a${random_pet.lb_hostname.id}"
 }
 
 # This code block is for creating a load balancer. The frontend_ip_configuration block is used to configure the frontend IP address of the load balancer. The public_ip_address_id is the id of the public IP address that we want to associate with the load balancer. The name is the name of the frontend IP configuration.
 resource "azurerm_lb" "example" {
-  name                = "TestLoadBalancer"
+  name                = "TestLoadBalancer2"
   location            = data.azurerm_resource_group.existing_rg.location
   resource_group_name = data.azurerm_resource_group.existing_rg.name
   sku                 = "Standard"
@@ -110,17 +98,16 @@ resource "azurerm_lb" "example" {
 # This resource block connects the load balancer to the backend pool. The loadbalancer_id is the id of the load balancer that we want to associate with the backend pool. The name is the name of the backend pool.
 resource "azurerm_lb_backend_address_pool" "example" {
   loadbalancer_id = azurerm_lb.example.id
-  name            = "BackEndAddressPool"
+  name            = "BackEndAddressPool2"
 }
 
-# this code block is for associating the backendpool with the loadbalanceremoved 
-  
+# this code block is for the application load balancing rule.
 resource "azurerm_lb_rule" "example" {
   loadbalancer_id                = azurerm_lb.example.id
-  name                           = "LBRule"
+  name                           = "HTTPRule2"
   protocol                       = "Tcp"
-  frontend_port                  = 3389
-  backend_port                   = 3389
+  frontend_port                  = 80
+  backend_port                   = 80
   frontend_ip_configuration_name = "PublicIPAddress"
   backend_address_pool_ids        = [azurerm_lb_backend_address_pool.example.id]
 }
@@ -140,10 +127,10 @@ resource "azurerm_lb_probe" "example" {
 resource "azurerm_lb_nat_rule" "example1" {
   resource_group_name            = data.azurerm_resource_group.existing_rg.name
   loadbalancer_id                = azurerm_lb.example.id
-  name                           = "RDPAccess"
+  name                           = "RDPAccess2"
   protocol                       = "Tcp"
   frontend_port_start            = 3000
-  frontend_port_end              = 3389
+  frontend_port_end              = 3002
   backend_port                   = 22
   backend_address_pool_id        = azurerm_lb_backend_address_pool.example.id
   frontend_ip_configuration_name = "PublicIPAddress"
@@ -172,7 +159,7 @@ resource "azurerm_nat_gateway" "example" {
 
 # NAT gate way should be associated with the subnet in the VNET
 resource "azurerm_subnet_nat_gateway_association" "example" {
-  subnet_id      = azurerm_subnet.subnet.id
+  subnet_id      = azurerm_subnet.subnet1.id
   nat_gateway_id = azurerm_nat_gateway.example.id
 }
 

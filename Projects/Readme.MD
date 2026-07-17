@@ -1,6 +1,53 @@
 ### This repo contains all the details of the projects which we maintain here
 
 
+# Projects — SSH key generation & usage
+
+Short notes for this project about SSH key handling used by the VM Scale Set.
+
+## What generates the key
+- The Terraform resource `tls_private_key.vmss_key` (in `vmss.tf`) generates an RSA keypair when you run `terraform apply`.
+
+## How the key is used
+- The VMSS `admin_ssh_key` block uses `tls_private_key.vmss_key.public_key_openssh` as the public key for the `azureuser` account on VM instances.
+
+## Important security note
+- The private key produced by `tls_private_key` is stored in the Terraform state. Treat the state as sensitive (secure storage, backend with encryption, limited access).
+
+## Alternatives (recommended for production)
+- Generate the key outside Terraform and pass only the public key into Terraform via a variable to avoid storing the private key in state.
+
+Example: generate key locally and provide public key as input
+```bash
+ssh-keygen -t rsa -b 4096 -f .ssh/key -N ""
+```
+
+Then set or pass `var.public_key` (string) and update `vmss.tf` to use `var.public_key` for `admin_ssh_key.public_key`.
+
+Example HCL for external public key variable
+```hcl
+variable "public_key" { type = string }
+
+admin_ssh_key {
+  username   = "azureuser"
+  public_key = var.public_key
+}
+```
+
+## Quick Terraform commands
+```bash
+terraform init
+terraform validate
+terraform plan
+```
+
+If you want, I can patch the configuration to accept `var.public_key` and document how to pass it from CI or a secret manager.
+
+
+
+
+=============================================================================================
+
 Below is the architecture of the project which we are going to perform here
 
 ![alt text](Images/mini-project.png)
@@ -81,4 +128,5 @@ Below is the architecture of the project which we are going to perform here
     * azurerm_monitor_autoscale_setting
 
         https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/monitor_autoscale_setting
-   
+
+  

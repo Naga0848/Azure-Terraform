@@ -1,10 +1,14 @@
 
+resource "tls_private_key" "vmss_key" {
+  algorithm = "RSA"
+  rsa_bits  = 4096
+}
 
 resource "azurerm_orchestrated_virtual_machine_scale_set" "vmss_terraform_tutorial" {
-  name                        = "vmss-terraform"
+  name                        = "app-scaleset2"
   resource_group_name         = data.azurerm_resource_group.existing_rg.name
   location                    = data.azurerm_resource_group.existing_rg.location
-  sku_name                    = "Standard_D2s_v4"
+  sku_name                    = "Standard_D2s_v3"
   instances                   = 3
   platform_fault_domain_count = 1     # For zonal deployments, this must be set to 1
   zones                       = ["1"] # Zones required to lookup zone in the startup script
@@ -16,7 +20,7 @@ resource "azurerm_orchestrated_virtual_machine_scale_set" "vmss_terraform_tutori
       admin_username                  = "azureuser"
       admin_ssh_key {
         username   = "azureuser"
-        public_key = file(".ssh/key.pub")
+        public_key = tls_private_key.vmss_key.public_key_openssh
       }
     }
   }
@@ -28,7 +32,7 @@ resource "azurerm_orchestrated_virtual_machine_scale_set" "vmss_terraform_tutori
     version   = "latest"
   }
   os_disk {
-    storage_account_type = "Premium_LRS"
+    storage_account_type = "Standard_LRS"
     caching              = "ReadWrite"
   }
 
@@ -40,8 +44,7 @@ resource "azurerm_orchestrated_virtual_machine_scale_set" "vmss_terraform_tutori
     ip_configuration {
       name                                   = "ipconfig"
       primary                                = true
-      subnet_id                              = azurerm_virtual_network.example.subnet[0].id
-      # subnet_id is in this format because the subnet is inside the virtual network resource block. If the subnet is created as a separate resource block, then the subnet_id will be in this format: azu
+      subnet_id                              = azurerm_subnet.subnet1.id
       load_balancer_backend_address_pool_ids = [azurerm_lb_backend_address_pool.example.id]
     }
   }
