@@ -140,7 +140,7 @@ resource "azurerm_lb_probe" "example" {
 
 # add lb nat rules to allow ssh access to the backend instances
 resource "azurerm_lb_nat_rule" "example1" {
-  resource_group_name            = azurerm_resource_group.example.name
+  resource_group_name            = data.azurerm_resource_group.existing_rg.name
   loadbalancer_id                = azurerm_lb.example.id
   name                           = "RDPAccess"
   protocol                       = "Tcp"
@@ -151,6 +151,8 @@ resource "azurerm_lb_nat_rule" "example1" {
   frontend_ip_configuration_name = "PublicIPAddress"
 }
 
+
+# NAT gateway also should have publicIP if we want to use it for outbound traffic. So we need to create a publicIP for the NAT gateway. The publicIP should be created before the NAT gateway is created. The publicIP should be associated with the NAT gateway. The NAT gateway should be associated with the subnet. The subnet should be associated with the virtual network. The virtual network should be associated with the resource group.
 resource "azurerm_public_ip" "natgwpip" {
   name                = "natgw-publicIP"
   location            = data.azurerm_resource_group.existing_rg.location
@@ -161,3 +163,23 @@ resource "azurerm_public_ip" "natgwpip" {
 }
 
 #add nat gateway to enable outbound traffic from the backend instances
+resource "azurerm_nat_gateway" "example" {
+  name                    = "nat-Gateway"
+  location                = data.azurerm_resource_group.existing_rg.location
+  resource_group_name     = data.azurerm_resource_group.existing_rg.name
+  sku_name                = "Standard"
+  idle_timeout_in_minutes = 10
+  zones                   = ["1"]
+}
+
+# NAT gate way should be associated with the subnet in the VNET
+resource "azurerm_subnet_nat_gateway_association" "example" {
+  subnet_id      = azurerm_subnet.subnet.id
+  nat_gateway_id = azurerm_nat_gateway.example.id
+}
+
+# nat gateway public ip association with NAT gateway
+resource "azurerm_nat_gateway_public_ip_association" "example" {
+  public_ip_address_id = azurerm_public_ip.natgwpip.id
+  nat_gateway_id       = azurerm_nat_gateway.example.id
+}
