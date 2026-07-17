@@ -126,3 +126,38 @@ resource "azurerm_lb_rule" "example" {
   frontend_ip_configuration_name = "PublicIPAddress"
   backend_address_pool_ids        = [azurerm_lb_backend_address_pool.example.id]
 }
+
+
+#set up load balancer probe to check if the backend is up
+resource "azurerm_lb_probe" "example" {
+  name            = "http-probe"
+  loadbalancer_id = azurerm_lb.example.id
+  protocol        = "Http"
+  port            = 80
+  request_path    = "/"
+}
+
+
+# add lb nat rules to allow ssh access to the backend instances
+resource "azurerm_lb_nat_rule" "example1" {
+  resource_group_name            = azurerm_resource_group.example.name
+  loadbalancer_id                = azurerm_lb.example.id
+  name                           = "RDPAccess"
+  protocol                       = "Tcp"
+  frontend_port_start            = 3000
+  frontend_port_end              = 3389
+  backend_port                   = 22
+  backend_address_pool_id        = azurerm_lb_backend_address_pool.example.id
+  frontend_ip_configuration_name = "PublicIPAddress"
+}
+
+resource "azurerm_public_ip" "natgwpip" {
+  name                = "natgw-publicIP"
+  location            = data.azurerm_resource_group.existing_rg.location
+  resource_group_name = data.azurerm_resource_group.existing_rg.name
+  allocation_method   = "Static"
+  sku                 = "Standard"
+  zones               = ["1"]
+}
+
+#add nat gateway to enable outbound traffic from the backend instances

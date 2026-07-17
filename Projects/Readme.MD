@@ -58,4 +58,15 @@ Below is the architecture of the project which we are going to perform here
 
         https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/lb_rule
 
-        
+    * azurerm_lb_probe
+
+        https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/lb_probe
+
+    * azurerm_lb_nat_rule
+
+        https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/lb_nat_rule
+
+    * azurerm_nat_gateway
+
+        https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/nat_gateway
+   
