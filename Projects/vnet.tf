@@ -1,3 +1,6 @@
+resource "random_pet" "lb_hostname" {
+}
+
 
 # Already this resource group is created in the Azure portal. We are using a data source to reference it in our Terraform configuration.
 data "azurerm_resource_group" "existing_rg" {
@@ -70,4 +73,56 @@ resource "azurerm_network_security_group" "example" {
     source_address_prefix      = "*"
     destination_address_prefix = "*"
   }
+}
+
+# This code block is used to associate the network security group with the subnet. The subnet_id is the id of the subnet that we want to associate with the network security group. The network_security_group_id is the id of the network security group that we want to associate with the subnet.
+resource "azurerm_subnet_network_security_group_association" "example" {
+  subnet_id                 = subnet1.id
+  network_security_group_id = azurerm_network_security_group.example.id
+}
+
+
+
+# PublicIP needs to be created before the Loadbalaction is created.
+  
+resource "azurerm_public_ip" "example" {
+  name                = "PublicIPForLB"
+  location            = data.azurerm_resource_group.existing_rg.location
+  resource_group_name = data.azurerm_resource_group.existing_rg.name
+  allocation_method   = "Static"
+  sku                 = "Standard"
+  zones               = ["1", "2", "3"]
+  domain_name_label   = "${data.azurerm_resource_group.existing_rg.name}-${random_pet.lb_hostname.id}"
+}
+
+# This code block is for creating a load balancer. The frontend_ip_configuration block is used to configure the frontend IP address of the load balancer. The public_ip_address_id is the id of the public IP address that we want to associate with the load balancer. The name is the name of the frontend IP configuration.
+resource "azurerm_lb" "example" {
+  name                = "TestLoadBalancer"
+  location            = data.azurerm_resource_group.existing_rg.location
+  resource_group_name = data.azurerm_resource_group.existing_rg.name
+  sku                 = "Standard"
+
+# this block is for the publicIP which we are using to access the application rather than the Loadbalanacer.
+  frontend_ip_configuration {
+    name                 = "PublicIPAddress"
+    public_ip_address_id = azurerm_public_ip.example.id
+  }
+}
+
+# This resource block connects the load balancer to the backend pool. The loadbalancer_id is the id of the load balancer that we want to associate with the backend pool. The name is the name of the backend pool.
+resource "azurerm_lb_backend_address_pool" "example" {
+  loadbalancer_id = azurerm_lb.example.id
+  name            = "BackEndAddressPool"
+}
+
+# this code block is for associating the backendpool with the loadbalanceremoved 
+  
+resource "azurerm_lb_rule" "example" {
+  loadbalancer_id                = azurerm_lb.example.id
+  name                           = "LBRule"
+  protocol                       = "Tcp"
+  frontend_port                  = 3389
+  backend_port                   = 3389
+  frontend_ip_configuration_name = "PublicIPAddress"
+  backend_address_pool_ids        = [azurerm_lb_backend_address_pool.example.id]
 }

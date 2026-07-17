@@ -34,3 +34,28 @@ Below is the architecture of the project which we are going to perform here
     *  As we are restricting the traffic to the VMSS, we should create a NAT Gateway and attach it to the subnet, so that the VMs inside the VMSS will talk to the outside world and install the necessary patches or packages according the requirment.
 
     * We maintain somesrcipts related to the application in the userdata(html files), so that the application comes up once the VMs are created.
+
+
+### Terraform documents used in the project
+
+    * azurerm_subnet_network_security_group_association
+
+        https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/subnet_network_security_group_association
+
+    * azurerm_virtual_network
+
+        https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/virtual_network     
+
+    * azurerm_lb
+
+        https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/lb   
+
+    * azurerm_lb_backend_address_pool
+
+        https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/lb_backend_address_pool
+
+    * azurerm_lb_rule
+
+        https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/lb_rule
+
+        
