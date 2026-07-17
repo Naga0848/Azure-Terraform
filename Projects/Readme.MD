@@ -148,4 +148,6 @@ Below is the architecture of the project which we are going to perform here
 
     * use the url as dns/      ----> to see the nginx welcome page as below
 
+            http://adriven-tarpon.eastus.cloudapp.azure.com/
+
 ![alt text](Images/nginx.png)
