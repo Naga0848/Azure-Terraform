@@ -344,3 +344,23 @@ terraform documentation https://developer.hashicorp.com/terraform/docs
         * Please look at the below image to know the difference between count and for_each
 
 ![alt text](Images/difference.png)
+
+
+
+### Understanding Data Sources in Terraform
+
+    * Terraform Data Source is like a "Read-Only Search" or "Look-Up" tool. It lets you fetch information about Azure resources that already exist (built manually or by another team) so you can use their details without recreating or modifying them.
+
+    The Analogy: Building a House Extension
+
+        * A Standard Resource Block (resource): This is you telling a contractor to build something brand new, like a new bedroom. If it's already there, trying to build it again will cause errors or unnecessary costs.
+
+        * A Data Source Block (data): This is you asking a surveyor to measure the existing house. You aren't building a new house; you just need to know exactly where the main electrical panel is located so you can safely wire your new bedroom.
+
+    Basic Syntax
+
+    A data block starts with the data keyword, followed by the specific data source type and a local name:
+
+        data "azurerm_resource_group" "existing_rg" {
+        name = "production-resources"
+        }    
