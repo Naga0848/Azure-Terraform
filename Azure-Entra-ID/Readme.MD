@@ -16,8 +16,7 @@ https://registry.terraform.io/providers/hashicorp/azuread/latest/docs/data-sourc
 
     * Even if we mention 0 in the place of * in main.tf it results only the same domain in the form of simple variable where as if has returned a list when we used * 
 
-![alt text](Image/outputs.png)
+![alt text](Images/outputs.png)
 
     * From the above image we can understand that the usernames are getting printed as we have decoded our users.csv file and the domain is prented two times because we have used output two times in main.tf
 
-    
