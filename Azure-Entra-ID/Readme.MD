@@ -11,3 +11,9 @@ https://registry.terraform.io/providers/hashicorp/azuread/latest/docs/data-sourc
     * Using the main.tf in this folder we try to list the domains existing in our current subscription plan.
 
 ![alt text](Images/domain.png)
+
+    * From the above image we can undertand that a domain is present in our current subscription plan.
+
+    * Even if we mention 0 in the place of * in main.tf it results only the same domain in the form of simple variable where as if has returned a list when we used * 
+
+    * 
