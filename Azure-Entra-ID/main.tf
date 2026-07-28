@@ -35,15 +35,41 @@ output "domain_names" {
 # Now we are using locals here, so that we can use in multiple places in the code. We are using the local variable to store the domain names which we got from the azuread_domains data source. We are also using the local variable to store the domain names in a list format, so that we can use it in multiple places in the code.
 locals {
   domain_name = data.azuread_domains.aad_domains.domains.*.domain_name
+  primary_domain = local.domain_name[0]
   users = csvdecode(file("users.csv"))    # this is to decode the csv file and store it in a local variable. We can use this local variable in the resource block to create multiple users using the for_each meta-argument.
 }
 
 
 # Outputs
-  output "domain" {
+output "domain" {
   value = local.domain_name
-  }
- # this output is to print the usernames of the users which we are creating using the for_each meta-argument. We are using the local variable to get the first name and last name of the users and then we are concatenating them to get the full name of the user.
+}
+
+# this output is to print the usernames of the users which we are creating using the for_each meta-argument. We are using the local variable to get the first name and last name of the users and then we are concatenating them to get the full name of the user.
 output "username" {
-    value = [for user in local.users : "${user.first_name} ${user.last_name}"]
-  }
+  value = [for user in local.users : "${user.first_name} ${user.last_name}"]
+}
+
+
+# this resource is for creating the user principle name and password for the users which we are creating using the for_each meta-argument. We are using the local variable to get the first name and last name of the users and then we are concatenating them to get the user principal name and password. We are also using the force_password_change attribute to force the user to change the password on first login. We are also using the department and job_title attributes to set the department and job title for the users.
+resource "azuread_user" "users" {
+  for_each = { for user in local.users: user.first_name => user }
+  
+  user_principal_name = format("%s%s@%s",
+    substr(each.value.first_name, 0, 1),
+    lower(each.value.last_name),
+    local.primary_domain)
+
+  password = format("%s%s%s!",
+    lower(each.value.last_name),
+    substr(lower(each.value.first_name), 0, 1),
+    length(each.value.first_name)
+  )
+
+
+  display_name = "${each.value.first_name} ${each.value.last_name}"
+  force_password_change = true
+  department = each.value.department
+  job_title = each.value.job_title
+
+}
