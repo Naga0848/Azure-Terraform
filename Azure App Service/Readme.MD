@@ -11,7 +11,7 @@ https://www.youtube.com/watch?v=--tNqPxZKp8&t=176s  -- small explanation
 
 ![alt text](images/aas.png)
 
-    * As shown in the above directory structure, the application is stored in our AAS and served to users via the AAS public DNS and all these are tied to and managed by something called App Service Principle.
+    * As shown in the above directory structure, the application is stored in our AAS and served to users via the AAS default domain and all these are tied to and managed by something called App Service Principle.
 
     * The complete underlying things like networking, computing etc will be taken care by ASP.
 
