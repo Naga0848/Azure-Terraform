@@ -27,3 +27,14 @@ https://www.youtube.com/watch?v=--tNqPxZKp8&t=176s  -- small explanation
 
     * From the above image we can understand tht the ASP provides the required infra for the AAS to host our applications.
 
+#### Azure App Service Demo
+
+![alt text](images/aas1.png)
+
+
+https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/service_plan  
+
+https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/linux_web_app  (app service categorozed as windows and linux)
+
+
+https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/linux_web_app_slot
