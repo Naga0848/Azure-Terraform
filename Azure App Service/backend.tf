@@ -1,10 +1,16 @@
-terraform {
-  backend "azurerm" {
-    resource_group_name  = "kml_rg_main-68517b9db7f34216"  # Can be passed via `-backend-config=`"resource_group_name=<resource group name>"` in the `init` command.
-    storage_account_name = "nagastatefile"                      # Can be passed via `-backend-config=`"storage_account_name=<storage account name>"` in the `init` command.
-    container_name       = "tfstate"                       # Can be passed via `-backend-config=`"container_name=<container name>"` in the `init` command.
-    key                  = "dev.terraform.tfstate"        # Can be passed via `-backend-config=`"key=<blob key name>"` in the `init` command.
+resource "azurerm_resource_group" "rg" {
+  name     = "nagashankar-rg"
+  location = var.location
+}
+
+resource "azurerm_storage_account" "nagashankarstatefile" {
+  name                     = "nagashankarstatefile"
+  resource_group_name      = azurerm_resource_group.rg.name
+  location                 = azurerm_resource_group.rg.location
+  account_tier             = "Standard"
+  account_replication_type = "GRS"
+
+  tags = {
+    environment = "staging"
   }
-  }
-  # We have created the storage-account using the backend.sh shell script and using it here. When we run the terraform init command dev.terraform.tfstate will be created in the blob containers
-  
+}

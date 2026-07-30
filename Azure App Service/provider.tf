@@ -13,7 +13,7 @@ terraform {
 provider "azurerm" {
     
   features {}
-  subscription_id = "a2b28c85-1948-4263-90ca-bade2bac4df4"  # subscription id of current kodekloud account
+  subscription_id = "96cef66f-6f2e-4cd7-9b71-7364db48c083"  # subscription id of current kodekloud account
    resource_provider_registrations = "none"
   # "skip_provider_registration" is deprecated and removed; allow the provider to register resource providers automatically.
   }

@@ -2,9 +2,13 @@ variable "environment" {
     type = string
     default = "staging"
     description = "the env type or the env name"
-
 }
 
+variable "location" {
+  type        = string
+  default     = "East US"
+  description = "Azure location for resources. Change if the current region is blocked or quota-limited."
+}
 
 # This variable is used when we want to use count(meta-argument) to create multiple resources of the same type. In this case, we are creating multiple storage accounts using the same resource block.
 # variable "storage_account_name" {

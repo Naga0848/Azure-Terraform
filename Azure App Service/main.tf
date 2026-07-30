@@ -1,8 +1,9 @@
 
-#  Declare the existing Resource Group using a Data Source
-data "azurerm_resource_group" "existing_rg" {
-  name = "kml_rg_main-0ded82e761d94c4f"
-}
+# #  creating a resource group
+# resource "azurerm_resource_group" "rg" {
+  # name     = "nagashankar-rg"
+  # location = "West Europe"
+# }
 
 # This is the extra storage account resource block that is commented out. It is not being used in the current configuration, but it can be uncommented and modified as needed to create additional storage accounts.
 # resource "azurerm_storage_account" "example" {
